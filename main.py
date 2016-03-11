@@ -5,6 +5,11 @@ import random
 import urllib
 import urllib2
 
+import sys
+sys.path.insert(0, 'lib')
+
+
+from pytube import  YouTube
 # for sending images
 from PIL import Image
 import multipart
@@ -126,9 +131,15 @@ class WebhookHandler(webapp2.RequestHandler):
         # CUSTOMIZE FROM HERE
 
         elif 'who are you' in text:
-            reply('Your DOOOM, created by Suyash: https://github.com/Suayshc1295/telebot')
+            reply('Your DOOOM, created by Suyash: https://github.com/Suyashc1295/telebot')    
         elif 'what time' in text:
             reply('look at the corner of your screen!')
+        elif 'youtu' in text:
+            yt = YouTube()
+            yt.from_url(text)
+            video = yt.get('mp4','360p')
+            #video.download(yt.filename)
+            reply(yt.filename)
         else:
             if getEnabled(chat_id):
                 reply('I got your message! (but I do not know how to answer)')
